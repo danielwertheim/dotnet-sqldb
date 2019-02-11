@@ -12,15 +12,15 @@
 *.suo
 *.cache
 
+.env
+*.local
 *.local.json
+*.local.ini
 
 # deploy
 build/
 tools/**
 !tools/packages.config
-
-# nservicebus
-.learningtransport
 
 # misc
 *~
