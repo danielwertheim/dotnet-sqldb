@@ -1,0 +1,39 @@
+# vs
+.vs/
+[Aa]pp_[Dd]ata/
+[Bb]in/
+[D]ebug/
+[Aa]rtifacts/
+[Oo]bj/
+[Tt]est[Rr]esult/
+[Tt]est[Rr]esults/
+[Tt]emp/
+*.user
+*.suo
+*.cache
+
+*.local.json
+
+# deploy
+build/
+tools/**
+!tools/packages.config
+
+# nservicebus
+.learningtransport
+
+# misc
+*~
+*.swp
+*.sdf
+*.orig
+*.pfx
+
+# resharper
+_ReSharper.*
+*.resharper*
+*.[Rr]e[Ss]harper.user
+*.DotSettings.user
+
+#windows stuff
+Thumbs.db

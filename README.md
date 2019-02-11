@@ -1,0 +1,2 @@
+# dotnet-sqlserverdb
+Uses e.g. [DbUp](https://github.com/dbup/dbup) and [Command Line Parser](https://github.com/commandlineparser/commandline) to offer a simple [DotNet Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for applying migration scripts etc.
