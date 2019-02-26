@@ -18,12 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="config.ini">
+    <Content Include="integrationtests.local.ini" Condition="Exists('integrationtests.local.ini')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="config.local.ini" Condition="Exists('config.local.ini')">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
