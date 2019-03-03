@@ -1,7 +1,6 @@
 module ``Drop Db command``
 
 open Xunit
-open SqlServerDb.Commands
 
 module ``When db does not exist`` =
     open TestEnv
@@ -10,12 +9,15 @@ module ``When db does not exist`` =
     [<Fact>]
     let ``It should not fail`` () =
         use session = TestDbSession.beginNew()
+        
+        TestDb.Should.notExist session |> ignore
 
-        {
-            DbDropCommand.Options.ConnectionString = session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString
-        }
-        |> DbDropCommand.run
-        |> Should.beSuccessfulCommand
+        SqlServerDb.Program.main [|
+            "drop"
+            "-c"
+            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+        |]
+        |> Should.haveSuccessfulExitCode
             
         TestDb.Should.notExist session
 
@@ -29,13 +31,14 @@ module ``When db exist`` =
             
         session
         |> TestDb.create
+        |> TestDb.Should.exist
         |> ignore
 
-        {
-            DbDropCommand.Options.ConnectionString = session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString
-        }
-        |> DbDropCommand.run
-        |> Should.beSuccessfulCommand
-            
-        session
-        |> TestDb.Should.notExist
+        SqlServerDb.Program.main [|
+            "drop"
+            "-c"
+            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+        |]
+        |> Should.haveSuccessfulExitCode            
+        
+        TestDb.Should.notExist session

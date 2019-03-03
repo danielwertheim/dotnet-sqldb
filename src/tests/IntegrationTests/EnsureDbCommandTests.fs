@@ -1,7 +1,6 @@
 module ``Ensure Db exists command``
 
 open Xunit
-open SqlServerDb.Commands
 
 module ``When db does not exist`` =
     open TestEnv
@@ -11,11 +10,14 @@ module ``When db does not exist`` =
     let ``It should create the database`` () =
         use session = TestDbSession.beginNew()
 
-        {
-            DbEnsureCommand.Options.ConnectionString = session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString
-        }
-        |> DbEnsureCommand.run
-        |> Should.beSuccessfulCommand
+        TestDb.Should.notExist session |> ignore
+
+        SqlServerDb.Program.main [|
+            "ensure"
+            "-c"
+            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+        |]
+        |> Should.haveSuccessfulExitCode
             
         TestDb.Should.exist session
 
@@ -32,11 +34,12 @@ module ``When db exist`` =
         |> TestDb.createTable session.id
         |> ignore
 
-        {
-            DbEnsureCommand.Options.ConnectionString = session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString
-        }
-        |> DbEnsureCommand.run
-        |> Should.beSuccessfulCommand
+        SqlServerDb.Program.main [|
+            "ensure"
+            "-c"
+            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+        |]
+        |> Should.haveSuccessfulExitCode
             
         session
         |> TestDb.Should.exist

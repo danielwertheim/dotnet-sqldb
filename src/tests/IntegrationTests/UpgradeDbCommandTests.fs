@@ -1,7 +1,6 @@
 module ``Upgrade Db command``
 
 open Xunit
-open SqlServerDb.Commands
 
 module ``When clean db exist`` =
     open TestEnv
@@ -11,15 +10,21 @@ module ``When clean db exist`` =
     let ``It should apply scripts from specified assembly`` () =
         use session = TestDbSession.beginNew()
         
-        TestDb.create session |> ignore
+        session
+        |> TestDb.create
+        |> TestDb.Should.exist
+        |> ignore
 
-        {
-            DbUpCommand.Options.ConnectionString = session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString
-            DbUpCommand.Options.Assembly = "IntegrationTests"
-        }
-        |> DbUpCommand.run
-        |> Should.beSuccessfulCommand
+        SqlServerDb.Program.main [|
+            "up"
+            "-c"
+            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+            "-a"
+            "IntegrationTests"
+        |]
+        |> Should.haveSuccessfulExitCode
 
         session
+        |> TestDb.Should.exist
         |> TestDb.Should.haveTable "SchemaVersions"
         |> TestDb.Should.haveTable "Foo"
