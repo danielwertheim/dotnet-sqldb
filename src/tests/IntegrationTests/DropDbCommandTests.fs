@@ -4,7 +4,7 @@ open Xunit
 
 module ``When db does not exist`` =
     open TestEnv
-    open SqlServerDb
+    open SqlDb
 
     [<Fact>]
     let ``It should not fail`` () =
@@ -12,10 +12,10 @@ module ``When db does not exist`` =
         
         TestDb.Should.notExist session |> ignore
 
-        SqlServerDb.Program.main [|
+        SqlDb.Program.main [|
             "drop"
             "-c"
-            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+            MsSql.DbConnectionString.asString session.connectionInfo.DbConnectionString
         |]
         |> Should.haveSuccessfulExitCode
             
@@ -23,7 +23,7 @@ module ``When db does not exist`` =
 
 module ``When db exist`` =
     open TestEnv
-    open SqlServerDb
+    open SqlDb
 
     [<Fact>]
     let ``It should drop the database`` () =
@@ -34,10 +34,10 @@ module ``When db exist`` =
         |> TestDb.Should.exist
         |> ignore
 
-        SqlServerDb.Program.main [|
+        SqlDb.Program.main [|
             "drop"
             "-c"
-            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+            MsSql.DbConnectionString.asString session.connectionInfo.DbConnectionString
         |]
         |> Should.haveSuccessfulExitCode            
         

@@ -1,9 +1,9 @@
-﻿module SqlServerDb.Commands.DbDropCommand
+﻿module SqlDb.Commands.DbDropCommand
 
 open CommandLine
 open DbUp
-open SqlServerDb
-open SqlServerDb.Logging
+open SqlDb
+open SqlDb.Logging
 
 let name = CommandName "DropDbCommand"
 
@@ -21,10 +21,10 @@ let run (opts:Options) =
     logger.Information("Running with Options={@DbDropOptions}", opts);
 
     opts.ConnectionString
-    |> SqlDb.ConnectionInfo.fromConnectionString
+    |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
-        DeployChanges.To.SqlDatabase(cnInfo.MasterConnectionString |> SqlDb.MasterConnectionString.asString)
-        |> DbUpExtensions.useScript (DbUpScript.dropDb (SqlDb.DbConnectionString.getDbName cnInfo.DbConnectionString))
+        DeployChanges.To.SqlDatabase(cnInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
+        |> DbUpExtensions.useScript (DbUpScript.dropDb (MsSql.DbConnectionString.getDbName cnInfo.DbConnectionString))
         |> DbUpExtensions.useSerilog logger
         |> DbUpExtensions.useNullJournal
         |> DbUpExtensions.build

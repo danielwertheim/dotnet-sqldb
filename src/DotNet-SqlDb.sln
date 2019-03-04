@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "SqlServerDb", "projects\SqlServerDb\SqlServerDb.fsproj", "{40C771FE-915C-474A-B39C-557748C8EA52}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "SqlDb", "projects\SqlDb\SqlDb.fsproj", "{40C771FE-915C-474A-B39C-557748C8EA52}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "UnitTests", "tests\UnitTests\UnitTests.fsproj", "{3AD116DB-C951-495E-8F57-9D7CBD30CD66}"
 EndProject

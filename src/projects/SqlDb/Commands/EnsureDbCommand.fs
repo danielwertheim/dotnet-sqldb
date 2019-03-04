@@ -1,9 +1,9 @@
-﻿module SqlServerDb.Commands.DbEnsureCommand
+﻿module SqlDb.Commands.DbEnsureCommand
 
 open CommandLine
 open DbUp
-open SqlServerDb
-open SqlServerDb.Logging
+open SqlDb
+open SqlDb.Logging
 
 let name = CommandName "EnsureDbCommand"
 
@@ -21,10 +21,10 @@ let run (opts:Options) =
     logger.Information("Running with Options={@DbEnsureOptions}", opts);
 
     opts.ConnectionString
-    |> SqlDb.ConnectionInfo.fromConnectionString
+    |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
-        DeployChanges.To.SqlDatabase(cnInfo.MasterConnectionString |> SqlDb.MasterConnectionString.asString)
-        |> DbUpExtensions.useScript (DbUpScript.ensureDbExists (SqlDb.DbConnectionString.getDbName cnInfo.DbConnectionString))
+        DeployChanges.To.SqlDatabase(cnInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
+        |> DbUpExtensions.useScript (DbUpScript.ensureDbExists (MsSql.DbConnectionString.getDbName cnInfo.DbConnectionString))
         |> DbUpExtensions.useSerilog logger
         |> DbUpExtensions.useNullJournal
         |> DbUpExtensions.build

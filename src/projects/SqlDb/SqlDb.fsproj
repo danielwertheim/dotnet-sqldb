@@ -22,7 +22,7 @@
     <Compile Include="Common.fs" />
     <Compile Include="Logging.fs" />
     <Compile Include="Errors.fs" />
-    <Compile Include="SqlDb.fs" />
+    <Compile Include="MsSql.fs" />
     <Compile Include="DbUpScript.fs" />
     <Compile Include="DbUpExtensions.fs" />
     <Compile Include="Commands\Command.fs" />

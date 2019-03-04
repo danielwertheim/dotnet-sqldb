@@ -5,6 +5,6 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Express"
-      SA_PASSWORD: ${DNSQLSERVERDB_SA_PWD}
+      SA_PASSWORD: ${DNSQLDB_SA_PWD}
     ports:
       - "1401:1433"

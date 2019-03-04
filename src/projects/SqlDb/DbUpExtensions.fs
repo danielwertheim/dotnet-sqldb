@@ -1,4 +1,4 @@
-﻿module SqlServerDb.DbUpExtensions
+﻿module SqlDb.DbUpExtensions
 
 open DbUp.Engine.Output
 open DbUp.Builder

@@ -1,9 +1,9 @@
 module ``DbUp script``
 
 open Xunit
-open SqlServerDb
+open SqlDb
 
-let fooDb = SqlDb.DbName.create "fooDb"
+let fooDb = MsSql.DbName.create "fooDb"
 
 module ``When creating drop Db script`` =
 

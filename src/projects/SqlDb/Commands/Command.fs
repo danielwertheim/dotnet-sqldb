@@ -1,6 +1,6 @@
-﻿module SqlServerDb.Commands.Command
+﻿module SqlDb.Commands.Command
 
-open SqlServerDb
+open SqlDb
 
 let tryRun<'opts> commandName opts (f: 'opts -> Result<unit, Errors>) =
     try

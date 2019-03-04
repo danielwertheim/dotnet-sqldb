@@ -10,7 +10,7 @@ let beSuccessfulCommand (r: Result<unit,_>) =
 
 let haveSuccessfulExitCode (exitCode: int) =
     exitCode
-    |> enum<SqlServerDb.Program.ExitCode>
+    |> enum<SqlDb.Program.ExitCode>
     |> function
-    | SqlServerDb.Program.ExitCode.Success -> ()
-    | v -> raise (new XunitException(sprintf "Program execution was expected to be Ok, but got exit code: '%A'" v))
+        | SqlDb.Program.ExitCode.Success -> ()
+        | v -> raise (new XunitException(sprintf "Program execution was expected to be Ok, but got exit code: '%A'" v))

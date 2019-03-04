@@ -1,7 +1,7 @@
 module ``Logging context``
 
 open Xunit
-open SqlServerDb.Logging
+open SqlDb.Logging
 
 module ``When converting to a string`` =
     [<Fact>]

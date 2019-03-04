@@ -1,9 +1,8 @@
-﻿module SqlServerDb.Program
+﻿module SqlDb.Program
 
-open System
 open CommandLine
-open SqlServerDb.Logging
-open SqlServerDb.Commands
+open SqlDb.Logging
+open SqlDb.Commands
 
 type ExitCode =
 | Success = 0

@@ -1,7 +1,7 @@
 module ``Error message``
 
 open Xunit
-open SqlServerDb
+open SqlDb
 open System
 
 module ``When converting to a string`` =

@@ -1,4 +1,4 @@
-﻿module SqlServerDb.Logging
+﻿module SqlDb.Logging
 
 open Serilog
 open Serilog.Core

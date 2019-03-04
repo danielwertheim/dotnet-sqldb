@@ -1,10 +1,10 @@
-﻿module SqlServerDb.Commands.DbUpCommand
+﻿module SqlDb.Commands.DbUpCommand
 
 open System.Reflection
 open CommandLine
 open DbUp
-open SqlServerDb
-open SqlServerDb.Logging
+open SqlDb
+open SqlDb.Logging
 
 let name = CommandName "UpgradeDbCommand"
 
@@ -27,9 +27,9 @@ let run (opts:Options) =
     logger.Information("Running with Options={@DbUpOptions}", opts);
 
     opts.ConnectionString
-    |> SqlDb.ConnectionInfo.fromConnectionString
+    |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
-        DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> SqlDb.DbConnectionString.asString)
+        DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
         |> DbUpExtensions.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
         |> DbUpExtensions.useSerilog logger
         |> DbUpExtensions.build
