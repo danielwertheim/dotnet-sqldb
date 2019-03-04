@@ -5,7 +5,7 @@ open CommandLine
 open SqlServerDb.Logging
 open SqlServerDb.Commands
 
-type private ExitCode =
+type ExitCode =
 | Success = 0
 | Failure = -1
 
@@ -33,9 +33,5 @@ let main argv =
                 | Errors.CommandError (name, ex) -> logger.Error(ex, sprintf "Error while running command '%s'." (name |> CommandName.asString))
                 |> fun () -> ExitCode.Failure
             |> fun exitCode ->
-                if System.Diagnostics.Debugger.IsAttached then
-                    Console.WriteLine("<<Hit key to end>>")
-                    Console.ReadKey() |> ignore
-                
                 Serilog.Log.CloseAndFlush()
                 int exitCode

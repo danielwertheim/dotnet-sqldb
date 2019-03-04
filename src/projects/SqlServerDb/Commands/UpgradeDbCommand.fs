@@ -17,7 +17,7 @@ type Options = {
         HelpText = "Connection string for the DB to upgrade.")>]
     ConnectionString : string
 
-    [<Option('a', "assemby",
+    [<Option('a', "assembly",
         Required = true,
         HelpText = "Assembly with embedded SQL scripts to be applied.")>]
     Assembly : string

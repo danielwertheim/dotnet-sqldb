@@ -109,19 +109,19 @@ module TestDb =
             session
             |> dbExists
             |> function
-            | _, true -> session
-            | dbName, false -> raise (XunitException (sprintf "Db '%A' was expected to exist." dbName))
+                | _, true -> session
+                | dbName, false -> raise (XunitException (sprintf "Db '%A' was expected to exist." dbName))
 
         let notExist session =    
             session
             |> dbExists
             |> function
-            | dbName, true -> raise (XunitException (sprintf "Db '%A' was not expected to exist." dbName))
-            | _, false -> session
+                | dbName, true -> raise (XunitException (sprintf "Db '%A' was not expected to exist." dbName))
+                | _, false -> session
 
         let haveTable name session =
             session
             |> tableExists name
             |> function
-            | _, true -> session
-            | tableName, false -> raise (XunitException (sprintf "Table '%A' was expected to exist." tableName))
+                | _, true -> session
+                | tableName, false -> raise (XunitException (sprintf "Table '%A' was expected to exist." tableName))

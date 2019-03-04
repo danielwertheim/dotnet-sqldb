@@ -12,12 +12,17 @@ Information($"BuildProfile: '{config.BuildProfile}'");
 Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("Build")
-    .IsDependentOn("UnitTests")
-    .IsDependentOn("IntegrationTests");
+    .IsDependentOn("UnitTests");
 
 Task("CI")
     .IsDependentOn("Default")
-    .IsDependentOn("Pack");
+    .IsDependentOn("Docker-Compose-Up")
+    .IsDependentOn("IntegrationTests")
+    .IsDependentOn("Pack")
+    .Finally(() => {
+        Information("Running 'docker compose stop'...");
+        StartProcess("docker-compose", "stop");
+    });
 /********************************************/
 Task("Clean").Does(() => {
     EnsureDirectoryExists(config.ArtifactsDir);
@@ -35,6 +40,7 @@ Task("Build").Does(() => {
             .WithProperty("Version", config.SemVer)
             .WithProperty("AssemblyVersion", config.BuildVersion)
             .WithProperty("FileVersion", config.BuildVersion)
+            .WithProperty("InformationalVersion", config.BuildVersion)
     };
     
     foreach(var sln in GetFiles($"{config.SrcDir}*.sln")) {
@@ -51,9 +57,14 @@ Task("UnitTests").Does(() => {
         ResultsDirectory = config.TestResultsDir,
         Verbosity = verbosity
     };
-    foreach(var testProj in GetFiles($"{config.SrcDir}tests/**/UnitTests.csproj")) {
+    foreach(var testProj in GetFiles($"{config.SrcDir}tests/**/UnitTests.fsproj")) {
         DotNetCoreTest(testProj.FullPath, settings);
     }
+});
+
+Task("Docker-Compose-Up").Does(() => {
+    StartProcess("docker-compose", "up -d");
+    System.Threading.Tasks.Task.Delay(2000).Wait(); //I know... It will be replaced
 });
 
 Task("IntegrationTests").Does(() => {
@@ -65,7 +76,7 @@ Task("IntegrationTests").Does(() => {
         ResultsDirectory = config.TestResultsDir,
         Verbosity = verbosity
     };
-    foreach(var testProj in GetFiles($"{config.SrcDir}tests/**/IntegrationTests.csproj")) {
+    foreach(var testProj in GetFiles($"{config.SrcDir}tests/**/IntegrationTests.fsproj")) {
         DotNetCoreTest(testProj.FullPath, settings);
     }
 });
@@ -82,6 +93,7 @@ Task("Pack").Does(() => {
             .WithProperty("Version", config.SemVer)
             .WithProperty("AssemblyVersion", config.BuildVersion)
             .WithProperty("FileVersion", config.BuildVersion)
+            .WithProperty("InformationalVersion", config.BuildVersion)
     };
 
     foreach(var proj in GetFiles($"{config.SrcDir}projects/**/*.csproj")) {
