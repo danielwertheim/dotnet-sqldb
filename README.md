@@ -76,5 +76,5 @@ TestDb="Server=.,1401;Database=foodb;User ID=sa;Password=MyFooPassword"
 - Environment variable: `DNSQLDB_ConnectionStrings__TestDb`, e.g.:
 
 ```
-DNSQLDB_ConnectionStrings__TestDb=.,1401;Database=foodb;User ID=sa;Password=MyFooPassword`
+DNSQLDB_ConnectionStrings__TestDb=Server=.,1401;Database=foodb;User ID=sa;Password=MyFooPassword
 ```
