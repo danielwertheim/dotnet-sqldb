@@ -20,7 +20,7 @@ module ``When clean db exist`` =
             "-c"
             MsSql.DbConnectionString.asString session.connectionInfo.DbConnectionString
             "-a"
-            "IntegrationTests"
+            "IntegrationTests.dll"
         |]
         |> Should.haveSuccessfulExitCode
 

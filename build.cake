@@ -12,16 +12,16 @@ Information($"BuildProfile: '{config.BuildProfile}'");
 Task("Default")
     .IsDependentOn("Clean")
     .IsDependentOn("Build")
-    .IsDependentOn("UnitTests");
+    .IsDependentOn("UnitTests")
+    .IsDependentOn("IntegrationTests");
 
 Task("CI")
-    .IsDependentOn("Default")
     .IsDependentOn("Docker-Compose-Up")
-    .IsDependentOn("IntegrationTests")
+    .IsDependentOn("Default")    
     .IsDependentOn("Pack")
     .Finally(() => {
-        Information("Running 'docker compose stop'...");
-        StartProcess("docker-compose", "stop");
+        Information("Running 'docker-compose down'...");
+        StartProcess("docker-compose", "down");
     });
 /********************************************/
 Task("Clean").Does(() => {
@@ -64,7 +64,6 @@ Task("UnitTests").Does(() => {
 
 Task("Docker-Compose-Up").Does(() => {
     StartProcess("docker-compose", "up -d");
-    System.Threading.Tasks.Task.Delay(2000).Wait(); //I know... It will be replaced
 });
 
 Task("IntegrationTests").Does(() => {
@@ -96,7 +95,7 @@ Task("Pack").Does(() => {
             .WithProperty("InformationalVersion", config.BuildVersion)
     };
 
-    foreach(var proj in GetFiles($"{config.SrcDir}projects/**/*.csproj")) {
+    foreach(var proj in GetFiles($"{config.SrcDir}projects/**/*.fsproj")) {
         DotNetCorePack(proj.FullPath, settings);
     }
 });

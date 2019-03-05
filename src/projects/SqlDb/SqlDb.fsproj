@@ -3,11 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-sqldb</ToolCommandName>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <SelfContained>false</SelfContained>
     <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-    <PackageId>dotnet-sqlserverdb</PackageId>
-    <PackageProjectUrl>https://github.com/danielwertheim/dotnet-sqlserverdb</PackageProjectUrl>
+    <PackageId>dotnet-sqldb</PackageId>
+    <PackageProjectUrl>https://github.com/danielwertheim/dotnet-sqldb</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>dotnet tool sqlserver sql migration</PackageTags>
   </PropertyGroup>
