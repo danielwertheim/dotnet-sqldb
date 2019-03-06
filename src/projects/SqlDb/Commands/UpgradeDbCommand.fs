@@ -38,5 +38,6 @@ let run (opts:Options) =
         DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
         |> DbUp'.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
         |> DbUp'.useSerilog logger
+        |> DbUp'.logScriptOutput
         |> DbUp'.build
         |> DbUp'.run

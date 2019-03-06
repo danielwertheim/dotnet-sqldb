@@ -27,6 +27,9 @@ let useScript ((name, script):DbUpScript) (builder: UpgradeEngineBuilder) =
 let useScriptsInAssembly assembly (builder: UpgradeEngineBuilder) =
     builder.WithScriptsEmbeddedInAssembly(assembly)
 
+let logScriptOutput (builder: UpgradeEngineBuilder) =
+    builder.LogScriptOutput()
+
 let run (engine: UpgradeEngine) : Result<_, Errors> =
     let result = engine.PerformUpgrade()
 
