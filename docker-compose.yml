@@ -1,10 +1,10 @@
 version: '3'
 services:
   sqldb:
-    image: "microsoft/mssql-server-linux:2017-latest"
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Express"
-      SA_PASSWORD: ${DNSQLSERVERDB_SA_PWD}
+      SA_PASSWORD: ${DNSQLDB_SA_PWD}
     ports:
       - "1401:1433"

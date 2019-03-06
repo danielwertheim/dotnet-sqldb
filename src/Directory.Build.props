@@ -5,7 +5,7 @@
     <Company>danielwertheim</Company>
     <Authors>danielwertheim</Authors>
     <Copyright>Copyright danielwertheim 2019</Copyright>
-    <RepositoryUrl>https://github.com/danielwertheim/dotnet-sqlserverdb</RepositoryUrl>
+    <RepositoryUrl>https://github.com/danielwertheim/dotnet-sqldb</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>

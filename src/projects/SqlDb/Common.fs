@@ -1,4 +1,4 @@
-﻿namespace SqlServerDb
+﻿namespace SqlDb
 
 type CommandName = CommandName of string
 

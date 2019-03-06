@@ -1,16 +1,16 @@
 ﻿module TestEnv
 
 open System.Data.SqlClient
-open SqlServerDb
+open SqlDb
 open System.Data
 open System
 
-type TestDbSession private (id, cnInfo:SqlDb.ConnectionInfo, onComplete: TestDbSession -> unit) =
+type TestDbSession private (id, cnInfo:MsSql.ConnectionInfo, onComplete: TestDbSession -> unit) =
     member ___.id = id
     member ___.dbName =
         cnInfo.DbConnectionString
-        |> SqlDb.DbConnectionString.getDbName
-        |> SqlDb.DbName.asString
+        |> MsSql.DbConnectionString.getDbName
+        |> MsSql.DbName.asString
 
     member __.connectionInfo = cnInfo
 
@@ -19,7 +19,7 @@ type TestDbSession private (id, cnInfo:SqlDb.ConnectionInfo, onComplete: TestDbS
             onComplete(this)
 
     static member private cleanUp (session: TestDbSession) =
-        use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> SqlDb.MasterConnectionString.asString)
+        use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
         cn.Open()
         try
             use command = cn.CreateCommand()
@@ -41,13 +41,13 @@ type TestDbSession private (id, cnInfo:SqlDb.ConnectionInfo, onComplete: TestDbS
                 let x = new SqlConnectionStringBuilder(cnString)
                 x.InitialCatalog <- sprintf "%s_%s" x.InitialCatalog id
                 x.ToString()
-            |> SqlDb.ConnectionInfo.fromConnectionString
+            |> MsSql.ConnectionInfo.fromConnectionString
 
         new TestDbSession(id, cnInfo, TestDbSession.cleanUp)
 
 module TestDb =
     let create (session: TestDbSession) =
-        use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> SqlDb.MasterConnectionString.asString)
+        use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
         cn.Open()
         try
             use command = cn.CreateCommand()
@@ -62,7 +62,7 @@ module TestDb =
         session
 
     let createTable name (session: TestDbSession) =
-        use cn = new SqlConnection(session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString)
+        use cn = new SqlConnection(session.connectionInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
         cn.Open()
         try
             use command = cn.CreateCommand()
@@ -78,7 +78,7 @@ module TestDb =
         open Xunit.Sdk
 
         let private dbExists (session: TestDbSession) =
-            use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> SqlDb.MasterConnectionString.asString)
+            use cn = new SqlConnection(session.connectionInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
             cn.Open()
             try
                 use cmd = cn.CreateCommand()
@@ -92,7 +92,7 @@ module TestDb =
                 session.dbName,(r :?> int) <> -1
 
         let private tableExists tableName (session: TestDbSession) =
-            use cn = new SqlConnection(session.connectionInfo.DbConnectionString |> SqlDb.DbConnectionString.asString)
+            use cn = new SqlConnection(session.connectionInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
             cn.Open()
             try
                 use cmd = cn.CreateCommand()

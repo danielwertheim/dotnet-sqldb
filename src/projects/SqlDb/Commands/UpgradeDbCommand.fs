@@ -1,10 +1,10 @@
-﻿module SqlServerDb.Commands.DbUpCommand
+﻿module SqlDb.Commands.DbUpCommand
 
 open System.Reflection
 open CommandLine
 open DbUp
-open SqlServerDb
-open SqlServerDb.Logging
+open SqlDb
+open SqlDb.Logging
 
 let name = CommandName "UpgradeDbCommand"
 
@@ -21,16 +21,23 @@ type Options = {
         Required = true,
         HelpText = "Assembly with embedded SQL scripts to be applied.")>]
     Assembly : string
+    
+    [<Option("verbose",
+        Default = false,
+        Required = false,
+        HelpText = "Enables verbose output.")>]
+    Verbose: bool
 }
 
 let run (opts:Options) =
-    logger.Information("Running with Options={@DbUpOptions}", opts);
+    logger.Debug("Running with Options={@DbUpOptions}", opts);
 
     opts.ConnectionString
-    |> SqlDb.ConnectionInfo.fromConnectionString
+    |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
-        DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> SqlDb.DbConnectionString.asString)
-        |> DbUpExtensions.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
-        |> DbUpExtensions.useSerilog logger
-        |> DbUpExtensions.build
-        |> DbUpExtensions.run
+        DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
+        |> DbUp'.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
+        |> DbUp'.useSerilog logger
+        |> DbUp'.logScriptOutput
+        |> DbUp'.build
+        |> DbUp'.run

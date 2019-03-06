@@ -1,7 +1,7 @@
 module ``Command name``
 
 open Xunit
-open SqlServerDb    
+open SqlDb    
 
 module ``When converting to a string`` =
     [<Theory>]

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\projects\SqlServerDb\SqlServerDb.fsproj" />
+    <ProjectReference Include="..\..\projects\SqlDb\SqlDb.fsproj" />
   </ItemGroup>
 
   <ItemGroup>

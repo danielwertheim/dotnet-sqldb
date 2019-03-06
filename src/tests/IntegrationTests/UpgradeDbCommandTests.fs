@@ -4,7 +4,7 @@ open Xunit
 
 module ``When clean db exist`` =
     open TestEnv
-    open SqlServerDb
+    open SqlDb
 
     [<Fact>]
     let ``It should apply scripts from specified assembly`` () =
@@ -15,12 +15,12 @@ module ``When clean db exist`` =
         |> TestDb.Should.exist
         |> ignore
 
-        SqlServerDb.Program.main [|
+        SqlDb.Program.main [|
             "up"
             "-c"
-            SqlDb.DbConnectionString.asString session.connectionInfo.DbConnectionString
+            MsSql.DbConnectionString.asString session.connectionInfo.DbConnectionString
             "-a"
-            "IntegrationTests"
+            "IntegrationTests.dll"
         |]
         |> Should.haveSuccessfulExitCode
 

@@ -1,5 +1,5 @@
 ﻿[<RequireQualifiedAccess>]
-module SqlServerDb.SqlDb
+module SqlDb.MsSql
 
 open System
 open System.Data.SqlClient
