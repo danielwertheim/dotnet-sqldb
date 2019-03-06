@@ -15,10 +15,16 @@ type Options = {
         Required = true,
         HelpText = "Connection string for the DB to drop. NOTE! Connection will be made against master DB.")>]
     ConnectionString : string
+
+    [<Option("verbose",
+        Default = false,
+        Required = false,
+        HelpText = "Enables verbose output.")>]
+    Verbose: bool
 }
 
 let run (opts:Options) =
-    logger.Information("Running with Options={@DbDropOptions}", opts);
+    logger.Debug("Running with Options={@DbDropOptions}", opts);
 
     opts.ConnectionString
     |> MsSql.ConnectionInfo.fromConnectionString

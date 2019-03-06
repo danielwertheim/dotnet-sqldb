@@ -3,6 +3,7 @@
 open CommandLine
 open SqlDb.Logging
 open SqlDb.Commands
+open Serilog.Events
 
 type ExitCode =
 | Success = 0
@@ -10,14 +11,18 @@ type ExitCode =
 
 [<EntryPoint>]
 let main argv =
+    #if DEBUG
+    Logging.overrideLogLevelWith LogEventLevel.Debug
+    #endif
+
     argv
     |> Parser.Default.ParseArguments<DbDropCommand.Options, DbEnsureCommand.Options, DbUpCommand.Options>
     |> function
         | :? CommandLine.Parsed<obj> as command ->
             match command.Value with
-            | :? DbDropCommand.Options as opts -> Command.tryRun DbDropCommand.name opts DbDropCommand.run
-            | :? DbEnsureCommand.Options as opts -> Command.tryRun DbEnsureCommand.name opts DbEnsureCommand.run
-            | :? DbUpCommand.Options as opts -> Command.tryRun DbUpCommand.name opts DbUpCommand.run
+            | :? DbDropCommand.Options as opts -> Command.tryRun DbDropCommand.name DbDropCommand.run opts
+            | :? DbEnsureCommand.Options as opts -> Command.tryRun DbEnsureCommand.name DbEnsureCommand.run opts
+            | :? DbUpCommand.Options as opts -> Command.tryRun DbUpCommand.name DbUpCommand.run opts
             | opts ->
                 logger.Error("Parsed UnknownOptions={@UnknownOptions}", opts)
                 Errors.GenericError (ErrorMessage "Parser error") |> Result.Error

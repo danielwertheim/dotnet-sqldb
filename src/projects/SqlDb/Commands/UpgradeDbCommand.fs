@@ -21,10 +21,16 @@ type Options = {
         Required = true,
         HelpText = "Assembly with embedded SQL scripts to be applied.")>]
     Assembly : string
+    
+    [<Option("verbose",
+        Default = false,
+        Required = false,
+        HelpText = "Enables verbose output.")>]
+    Verbose: bool
 }
 
 let run (opts:Options) =
-    logger.Information("Running with Options={@DbUpOptions}", opts);
+    logger.Debug("Running with Options={@DbUpOptions}", opts);
 
     opts.ConnectionString
     |> MsSql.ConnectionInfo.fromConnectionString

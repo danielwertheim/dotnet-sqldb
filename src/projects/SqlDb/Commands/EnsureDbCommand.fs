@@ -15,10 +15,16 @@ type Options = {
         Required = true,
         HelpText = "Connection string for the DB to create if it does not already exist.")>]
     ConnectionString : string
+
+    [<Option("verbose",
+        Default = false,
+        Required = false,
+        HelpText = "Enables verbose output.")>]
+    Verbose: bool
 }
 
 let run (opts:Options) =
-    logger.Information("Running with Options={@DbEnsureOptions}", opts);
+    logger.Debug("Running with Options={@DbEnsureOptions}", opts);
 
     opts.ConnectionString
     |> MsSql.ConnectionInfo.fromConnectionString
