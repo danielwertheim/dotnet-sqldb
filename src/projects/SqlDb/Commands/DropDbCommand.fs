@@ -30,9 +30,9 @@ let run (opts:Options) =
     |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
         DeployChanges.To.SqlDatabase(cnInfo.MasterConnectionString |> MsSql.MasterConnectionString.asString)
-        |> DbUpExtensions.useScript (DbUpScript.dropDb (MsSql.DbConnectionString.getDbName cnInfo.DbConnectionString))
-        |> DbUpExtensions.useSerilog logger
-        |> DbUpExtensions.useNullJournal
-        |> DbUpExtensions.build
-        |> DbUpExtensions.run
+        |> DbUp'.useScript (DbUpScript.dropDb (MsSql.DbConnectionString.getDbName cnInfo.DbConnectionString))
+        |> DbUp'.useSerilog logger
+        |> DbUp'.useNullJournal
+        |> DbUp'.build
+        |> DbUp'.run
         

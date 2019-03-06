@@ -1,4 +1,4 @@
-﻿module SqlDb.DbUpExtensions
+﻿module SqlDb.DbUp'
 
 open DbUp.Engine.Output
 open DbUp.Builder
@@ -6,7 +6,7 @@ open DbUp.Engine
 open DbUp.Helpers
 open Serilog
 
-type DbUpLogger(logger:ILogger) =
+type private DbUpLogger(logger:ILogger) =
     interface IUpgradeLog with
         member __.WriteInformation (format:string, [<System.ParamArray>]args:obj[]) =
             logger.Information(format, args)
@@ -15,16 +15,16 @@ type DbUpLogger(logger:ILogger) =
         member __.WriteError (format:string, [<System.ParamArray>]args:obj[]) =
             logger.Error(format, args)
 
-let useSerilog (logger:ILogger) (builder:UpgradeEngineBuilder) =
-    builder.LogTo <| new DbUpLogger(logger)
+let useSerilog (logger:ILogger) (builder: UpgradeEngineBuilder) =
+    builder.LogTo (new DbUpLogger(logger))
 
 let useNullJournal (builder:UpgradeEngineBuilder) =
     builder.JournalTo(new NullJournal())
 
-let useScript ((name, script):DbUpScript) (builder:UpgradeEngineBuilder) =
+let useScript ((name, script):DbUpScript) (builder: UpgradeEngineBuilder) =
     builder.WithScript(name, script)
 
-let useScriptsInAssembly assembly (builder:UpgradeEngineBuilder) =
+let useScriptsInAssembly assembly (builder: UpgradeEngineBuilder) =
     builder.WithScriptsEmbeddedInAssembly(assembly)
 
 let run (engine: UpgradeEngine) : Result<_, Errors> =

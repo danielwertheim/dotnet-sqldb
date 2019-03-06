@@ -29,7 +29,7 @@
     <Compile Include="Errors.fs" />
     <Compile Include="MsSql.fs" />
     <Compile Include="DbUpScript.fs" />
-    <Compile Include="DbUpExtensions.fs" />
+    <Compile Include="DbUp.fs" />
     <Compile Include="Commands\Command.fs" />
     <Compile Include="Commands\DropDbCommand.fs" />
     <Compile Include="Commands\EnsureDbCommand.fs" />

@@ -36,7 +36,7 @@ let run (opts:Options) =
     |> MsSql.ConnectionInfo.fromConnectionString
     |> fun cnInfo ->
         DeployChanges.To.SqlDatabase(cnInfo.DbConnectionString |> MsSql.DbConnectionString.asString)
-        |> DbUpExtensions.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
-        |> DbUpExtensions.useSerilog logger
-        |> DbUpExtensions.build
-        |> DbUpExtensions.run
+        |> DbUp'.useScriptsInAssembly (Assembly.LoadFrom(opts.Assembly))
+        |> DbUp'.useSerilog logger
+        |> DbUp'.build
+        |> DbUp'.run
