@@ -21,6 +21,12 @@ After that you can start using it (you might need to restart your prompt of choi
 dotnet sqldb --help
 ```
 
+or
+
+```
+dotnet-sqldb --help
+```
+
 ### Local installation
 To install it locally, you use the [dotnet tool install command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install) with the `--tool-path` switch:
 
@@ -38,14 +44,32 @@ The following commands are supported:
 dotnet sqldb ensure [--connectionstring|-c]=mycnstring
 ```
 
+or
+
+```
+dotnet-sqldb ensure [--connectionstring|-c]=mycnstring
+```
+
 - **Drop:** Drops the specified database if it exists
 ```
 dotnet sqldb drop [--connectionstring|-c]=mycnstring
 ```
 
+or
+
+```
+dotnet-sqldb drop [--connectionstring|-c]=mycnstring
+```
+
 - **Up:** Upgrades the database by applying SQL-scripts using [DbUp](https://github.com/dbup/dbup)
 ```
 dotnet sqldb up [--connectionstring|-c]=mycnstring [--assembly|-a]=myassembly_with_embedded_scripts
+```
+
+or
+
+```
+dotnet-sqldb up [--connectionstring|-c]=mycnstring [--assembly|-a]=myassembly_with_embedded_scripts
 ```
 
 ## Integration tests
