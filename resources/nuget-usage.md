@@ -15,19 +15,19 @@ dotnet-sqldb --help
 Ensures that the specified DB exists. If it does not exist, it gets created.
 
 ```
-dotnet-sqldb ensure [--connectionstring|-c]=mycnstring
+dotnet-sqldb ensure [--connectionstring|-c] mycnstring
 ```
 
 ## DropDb
 Drops the specified database if it exists.
 
 ```
-dotnet-sqldb drop [--connectionstring|-c]=mycnstring
+dotnet-sqldb drop [--connectionstring|-c] mycnstring
 ```
 
 ## UpgradeDb
 Upgrades the database by applying SQL-scripts using [DbUp](https://github.com/dbup/dbup)
 
 ```
-dotnet-sqldb up [--connectionstring|-c]=mycnstring [--assembly|-a]=myassembly_with_embedded_scripts
+dotnet-sqldb up [--connectionstring|-c] mycnstring [--assembly|-a] myassembly_with_embedded_scripts
 ```
