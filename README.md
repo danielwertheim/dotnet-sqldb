@@ -1,7 +1,7 @@
 # dotnet-sqldb
 Uses [DbUp](https://github.com/dbup/dbup) and [Command Line Parser](https://github.com/commandlineparser/commandline) to offer a simple [DotNet Global Tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for applying migration scripts etc. against a SQL-Server database.
 
-[![Build status](https://dev.azure.com/danielwertheim/dotnet-sqldb/_apis/build/status/dotnet-sqldb-CI-Ubuntu)](https://dev.azure.com/danielwertheim/dotnet-sqldb/_build/latest?definitionId=5) Ubuntu
+[![Build status](https://dev.azure.com/danielwertheim/dotnet-sqldb/_apis/build/status/dotnet-sqldb-CI-Ubuntu)](https://dev.azure.com/danielwertheim/dotnet-sqldb/_build/latest?definitionId=5)
 
 **Note:** It's your data. Use at your own risk. As [the license](https://github.com/danielwertheim/dotnet-sqldb/blob/master/LICENSE) (MIT) says: *"THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND..."*
 
