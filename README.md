@@ -3,6 +3,8 @@ Uses [DbUp](https://github.com/dbup/dbup) and [Command Line Parser](https://gith
 
 [![Build status](https://dev.azure.com/danielwertheim/dotnet-sqldb/_apis/build/status/dotnet-sqldb-CI-Ubuntu)](https://dev.azure.com/danielwertheim/dotnet-sqldb/_build/latest?definitionId=5) Ubuntu
 
+**Note:** It's your data. Use at your own risk. As [the license](https://github.com/danielwertheim/dotnet-sqldb/blob/master/LICENSE) (MIT) says: *"THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND..."*
+
 ## Installation
 It's a DotNet Global Tool, distributed via NuGet.
 
