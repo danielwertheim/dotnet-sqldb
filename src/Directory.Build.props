@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <Version>0.0.0</Version>
-    <Decription>.NET Global Tool using e.g. DbUp for SqlServer to manage migration scripts.</Decription>
+    <Description>.NET Global Tool using e.g. DbUp for SqlServer to manage migration scripts.</Description>
     <Company>danielwertheim</Company>
     <Authors>danielwertheim</Authors>
     <Copyright>Copyright danielwertheim 2019</Copyright>
